@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Codecool.CarRace</name>
+    </assembly>
+    <members>
+        <member name="T:Codecool.CarRace.Program">
+            <summary>
+            This is the main class of your program which contains Main method
+            </summary>
+        </member>
+        <member name="M:Codecool.CarRace.Program.Main(System.String[])">
+            <summary>
+            This is the entry point of your program.
+            </summary>
+            <param name="args">Command line arguments. It is unused for this program.</param>
+        </member>
+        <member name="M:Codecool.CarRace.Program.CreateVehicles(Codecool.CarRace.Race)">
+            <summary>
+            Creates all the vehicles that will be part of this race.
+            </summary>
+            <param name="race">The race where these vehiles will participate</param>
+        </member>
+        <member name="T:Codecool.CarRace.Race">
+            <summary>
+            This class has methods with different forms of greetings.
+            </summary>
+        </member>
+        <member name="M:Codecool.CarRace.Race.SimulateRace">
+            <summary>
+            Simulates the passing of time by advancing the weather and
+            moving the vehicles for the duration of a whole race.
+            </summary>
+        </member>
+        <member name="M:Codecool.CarRace.Race.PrintRaceResults">
+            <summary>
+            Prints the state of all vehicles. Called at the end of the
+            race.
+            </summary>
+        </member>
+    </members>
+</doc>
