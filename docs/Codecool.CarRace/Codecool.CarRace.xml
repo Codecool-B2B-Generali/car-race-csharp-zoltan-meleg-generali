@@ -4,6 +4,230 @@
         <name>Codecool.CarRace</name>
     </assembly>
     <members>
+        <member name="T:Codecool.CarRace.Vehicles.Car">
+            <summary>
+            car class
+            </summary>
+        </member>
+        <member name="F:Codecool.CarRace.Vehicles.Car.YELLOW_FLAG_SPEED">
+            <summary>
+            Cars can travel with this speed when there is a broken
+            truck on the tracks.
+            </summary>
+        </member>
+        <member name="M:Codecool.CarRace.Vehicles.Car.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Codecool.CarRace.Vehicles.Car"/> class.
+            Create a car.
+            <para>
+            The call to the parent class' constructor has to be the first
+            thing the constructor does.  But we have to pass data to it.
+            We solve this by calling two static methods because both values
+            are calculated per instance.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Codecool.CarRace.Vehicles.Car.CalculateNormalSpeed">
+            <summary>
+            The normal speed of the car determined by random.
+            </summary>
+            <returns>A value between 80 and 110 inclusive.</returns>
+        </member>
+        <member name="F:Codecool.CarRace.Vehicles.Car.POSSIBLE_NAMES">
+            <summary>
+            List of names that cars can choose from.  It is a property of
+            all cars so it is made static.
+            </summary>
+        </member>
+        <member name="M:Codecool.CarRace.Vehicles.Car.PrepareForLap(Codecool.CarRace.Race)">
+            <summary>
+            If there is a broken truck on the track the actual speed is limited
+            </summary>
+            <param name="race">instance of the current race from where we can access data
+            for example weather conditions and broken truck info</param>
+        </member>
+        <member name="M:Codecool.CarRace.Vehicles.Car.GenerateName">
+            <summary>
+            Generate a name consisting of a first and last name chosen
+            from the list of allowed names.
+            </summary>
+            <returns>The generated name.</returns>
+        </member>
+        <member name="T:Codecool.CarRace.Vehicles.Motorcycle">
+            <summary>
+            motorcycle class
+            </summary>
+        </member>
+        <member name="F:Codecool.CarRace.Vehicles.Motorcycle.NORMAL_SPEED">
+            <summary>
+            The speed in good weather conditions.
+            </summary>
+        </member>
+        <member name="M:Codecool.CarRace.Vehicles.Motorcycle.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Codecool.CarRace.Vehicles.Motorcycle"/> class.
+            </summary>
+        </member>
+        <member name="F:Codecool.CarRace.Vehicles.Motorcycle._motorcycleNumber">
+            <summary>
+            Motorcycles have names with serial numbers.  We have to track
+            the numbering on a class level that's why this field is static.
+            </summary>
+        </member>
+        <member name="M:Codecool.CarRace.Vehicles.Motorcycle.PrepareForLap(Codecool.CarRace.Race)">
+            <summary>
+            Motorcycles go with their normal speed. In case of rain they
+            have to slow down.
+            </summary>
+            <param name="race">instance of the current race from where we can access data
+            for example weather conditions and broken truck info
+            </param>
+        </member>
+        <member name="M:Codecool.CarRace.Vehicles.Motorcycle.GenerateName">
+            <summary>
+            Generate name using the 'Motorcycle' and a number
+            </summary>
+            <returns>The name of the motorcycle</returns>
+        </member>
+        <member name="T:Codecool.CarRace.Vehicles.Truck">
+            <summary>
+            truck class
+            </summary>
+        </member>
+        <member name="F:Codecool.CarRace.Vehicles.Truck.NORMAL_SPEED">
+            <summary>
+            Trucks go with a steady 100 km/h.
+            </summary>
+        </member>
+        <member name="F:Codecool.CarRace.Vehicles.Truck.BREAKDOWN_CHANCE">
+            <summary>
+            There's a five percent chance a truck will break down.
+            </summary>
+        </member>
+        <member name="F:Codecool.CarRace.Vehicles.Truck.TURNS_NEEDED_TO_FIX_TRUCK">
+            <summary>
+            If a truck breaks down, fixing it takes this many turns
+            </summary>
+        </member>
+        <member name="F:Codecool.CarRace.Vehicles.Truck._state">
+            <summary>
+            Trucks current state.
+            </summary>
+        </member>
+        <member name="T:Codecool.CarRace.Vehicles.Truck.State">
+            <summary>
+            Possible states a truck can be in.
+            Notice that it is embedded inside the truck class.
+            </summary>
+        </member>
+        <member name="P:Codecool.CarRace.Vehicles.Truck.IsBrokenDown">
+            <summary>
+            Gets a value indicating whether this truck is operational.
+            Note: This code uses multiple abbreviations, its equal to this code:
+            <code>
+            public bool IsBrokenDown { get => _state != State.OPERATIONAL; }
+            </code>
+            and also to this one:
+            <code>
+            public bool IsBrokenDown { get { return _state != State.OPERATIONAL; } }
+            </code>
+            </summary>
+        </member>
+        <member name="F:Codecool.CarRace.Vehicles.Truck._breakdownTurnsLeft">
+            <summary>
+            When a truck breaks down we need to count the turns spent with fixing
+            </summary>
+        </member>
+        <member name="M:Codecool.CarRace.Vehicles.Truck.NextState">
+            <summary>
+            A state machine implementation.
+            </summary>
+            <returns>The state following this state.</returns>
+        </member>
+        <member name="M:Codecool.CarRace.Vehicles.Truck.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Codecool.CarRace.Vehicles.Truck"/> class.
+            </summary>
+        </member>
+        <member name="M:Codecool.CarRace.Vehicles.Truck.PrepareForLap(Codecool.CarRace.Race)">
+            <summary>
+            Calculate the actual speed and also advance the state of the truck.
+            </summary>
+            <param name="race">the current race object</param>
+        </member>
+        <member name="M:Codecool.CarRace.Vehicles.Truck.GenerateName">
+            <summary>
+            Generate name by converting a random integer to string
+            </summary>
+            <returns>The name of the truck</returns>
+        </member>
+        <member name="T:Codecool.CarRace.Vehicles.Vehicle">
+            <summary>
+            Base class for all vehicles. It is an abstract class meaning
+            <list type="bullet">
+              <item>Instances of this class can't be created.</item>
+              <item>Methods can be left unimplemented.</item>
+            </list>
+            </summary>
+        </member>
+        <member name="F:Codecool.CarRace.Vehicles.Vehicle.NormalSpeed">
+            <summary>
+            The speed this vehicle usually travels with.
+            </summary>
+        </member>
+        <member name="F:Codecool.CarRace.Vehicles.Vehicle.Name">
+            <summary>
+            The name of this vehicle.
+            </summary>
+        </member>
+        <member name="F:Codecool.CarRace.Vehicles.Vehicle.ActualSpeed">
+            <summary>
+            The speed of this vehicle for the given hour.
+            <para>
+            Will be set in the implementing classes.
+            </para>
+            </summary>
+        </member>
+        <member name="F:Codecool.CarRace.Vehicles.Vehicle.DistanceTravelled">
+            <summary>
+            A variable accumulating the total of distance this vehicle has
+            travelled.
+            </summary>
+        </member>
+        <member name="M:Codecool.CarRace.Vehicles.Vehicle.PrepareForLap(Codecool.CarRace.Race)">
+            <summary>
+            Prepare for the next hour: take the special events into consideration (broken truck etc)
+            Implemented per subclass
+            </summary>
+            <param name="race">instance of the currently ongoing race</param>
+        </member>
+        <member name="M:Codecool.CarRace.Vehicles.Vehicle.MoveForAnHour">
+            <summary>
+            Simulate the vehicle for one hour. Only updates the travelled distance,
+            actual speed should be updated before calling this method
+            </summary>
+        </member>
+        <member name="M:Codecool.CarRace.Vehicles.Vehicle.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Codecool.CarRace.Vehicles.Vehicle"/> class.
+            Create a vehicle with the given name and normal speed.
+            NOTE: normalSpeed could also have a setter method like GenerateName(),
+            that would have been a good solution too
+            </summary>
+            <param name="normalSpeed">normal travelling speed of this vehicle.</param>
+        </member>
+        <member name="M:Codecool.CarRace.Vehicles.Vehicle.ToString">
+            <summary>
+            The textual representation of this vehicle.
+            </summary>
+            <returns>The textual representation of this vehicle</returns>
+        </member>
+        <member name="M:Codecool.CarRace.Vehicles.Vehicle.GenerateName">
+            <summary>
+            Child classes should implement naming inside this method
+            </summary>
+            <returns>a good name for the vehicle.</returns>
+        </member>
         <member name="T:Codecool.CarRace.Program">
             <summary>
             This is the main class of your program which contains Main method
@@ -26,10 +250,29 @@
             This class has methods with different forms of greetings.
             </summary>
         </member>
-        <member name="M:Codecool.CarRace.Race.SimulateRace">
+        <member name="F:Codecool.CarRace.Race.NUM_OF_LAPS">
             <summary>
-            Simulates the passing of time by advancing the weather and
-            moving the vehicles for the duration of a whole race.
+            Duration of a race
+            </summary>
+        </member>
+        <member name="F:Codecool.CarRace.Race._weather">
+            <summary>
+            Weather can be different for races ongoing parallel so each race has a weather.
+            </summary>
+        </member>
+        <member name="P:Codecool.CarRace.Race.IsRaining">
+            <summary>
+            Gets a value indicating whether its raining through the Weather object.
+            </summary>
+        </member>
+        <member name="P:Codecool.CarRace.Race.IsThereABrokenTruck">
+            <summary>
+            Gets a value indicating whether there is a broken truck on the track. This boolean gets updated every turn.
+            </summary>
+        </member>
+        <member name="F:Codecool.CarRace.Race._vehicles">
+            <summary>
+            All the vehicles participating in the given race.
             </summary>
         </member>
         <member name="M:Codecool.CarRace.Race.PrintRaceResults">
@@ -37,6 +280,103 @@
             Prints the state of all vehicles. Called at the end of the
             race.
             </summary>
+        </member>
+        <member name="M:Codecool.CarRace.Race.RegisterRacer(Codecool.CarRace.Vehicles.Vehicle)">
+            <summary>
+            Add a racer to the race
+            </summary>
+            <param name="racer">The vehicle we want to add as a racer</param>
+        </member>
+        <member name="M:Codecool.CarRace.Race.SimulateRace">
+            <summary>
+            Simulates the passing of time by advancing the weather and
+            moving the vehicles for the duration of a whole race.
+            </summary>
+        </member>
+        <member name="M:Codecool.CarRace.Race.GetBrokenTruckStatus">
+            <summary>
+            Update broken truck status through this method only.
+            </summary>
+            <returns>true if there is broken down truck on the track</returns>
+        </member>
+        <member name="T:Codecool.CarRace.Weather">
+            <summary>
+            A class representing the weather. Advances its state by each call
+            to <see cref="T:Codecool.CarRace.Weather"/>
+            </summary>
+        </member>
+        <member name="F:Codecool.CarRace.Weather.CHANCE_OF_RAIN">
+            <summary>
+            Chance that it will rain in a new time-step.
+            </summary>
+        </member>
+        <member name="P:Codecool.CarRace.Weather.IsRaining">
+            <summary>
+            Gets a value indicating whether it is raining in the current time-step.
+            </summary>
+        </member>
+        <member name="M:Codecool.CarRace.Weather.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Codecool.CarRace.Weather"/> class.
+            Sets the state of the rain in the constructor.
+            </summary>
+        </member>
+        <member name="M:Codecool.CarRace.Weather.Randomize">
+            <summary>
+            Calculate the new state of the weather.
+            </summary>
+        </member>
+        <member name="T:RandomHelper">
+            <summary>
+             A wrapper around the built-in <see cref="T:System.Random"/>
+             <para>
+             Has only static methods which all use the same pseudorandom number
+             generator. In a real project it might be more finely controlled
+             which usecases share PRNGs.
+             </para>
+             Another approach would be to extend Random instead of a wrapping it.
+            </summary>
+        </member>
+        <member name="F:RandomHelper._random">
+            <summary>
+            An instance of a pseudorandom number generator shared for all
+            uses of methods.
+            </summary>
+        </member>
+        <member name="M:RandomHelper.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:RandomHelper"/> class.
+            No point in making instances of this class.
+            </summary>
+        </member>
+        <member name="M:RandomHelper.NextInt(System.Int32)">
+            <summary>
+            Generate a random integer from a given range.
+            </summary>
+            <param name="upper">upper limit of the range.</param>
+            <returns>A random number between 0 and an upper bound.</returns>
+        </member>
+        <member name="M:RandomHelper.ChooseOne(System.String[])">
+            <summary>
+            Choose a random element from an array of strings.
+            </summary>
+            <param name="possibilities">array of strings to choose from.</param>
+            <returns>The chosen string.</returns>
+        </member>
+        <member name="M:RandomHelper.NextInt(System.Int32,System.Int32)">
+            <summary>
+            Generate a random integer from a given range.
+            </summary>
+            <param name="lower">lower limit of the range.</param>
+            <param name="upper">upper limit of the range.</param>
+            <returns>A random number between lower and an upper bound.</returns>
+        </member>
+        <member name="M:RandomHelper.EventWithChance(System.Int32)">
+            <summary>
+            Determine whether an event has occured given the chance for it.
+            </summary>
+            <param name="chance">The chance of the event happening in percents.</param>
+            <returns>true if the event has happened.</returns>
         </member>
     </members>
 </doc>

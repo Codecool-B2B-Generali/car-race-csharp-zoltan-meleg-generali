@@ -1,4 +1,6 @@
-﻿namespace Codecool.CarRace
+﻿using Codecool.CarRace.Vehicles;
+
+namespace Codecool.CarRace
 {
     /// <summary>
     /// This is the main class of your program which contains Main method
@@ -24,6 +26,12 @@
         /// <param name="race">The race where these vehiles will participate</param>
         private static void CreateVehicles(Race race)
         {
+            for (int i = 0; i < 10; i++)
+            {
+                race.RegisterRacer(new Car());
+                race.RegisterRacer(new Motorcycle());
+                race.RegisterRacer(new Truck());
+            }
         }
     }
 }
